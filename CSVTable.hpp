@@ -13,6 +13,12 @@ class CSVTable {
 public:
 	void parseFile(std::string fileName);
 
+	std::string getCellValue(int line, int row);
+
+	int getNRows();
+
+	int getNColumns();
+
 private:
 	std::vector<std::vector<std::string>> m_table;
 };

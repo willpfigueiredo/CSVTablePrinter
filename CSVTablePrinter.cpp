@@ -4,15 +4,16 @@
 #include <sstream>
 #include <vector>
 #include <locale>
+#include "CSVTable.hpp"
 
 
 using namespace std;
 
-void printTable(vector<vector<string>>& table) {
+void printTable(CSVTable& table) {
 
-	for (vector<string> line : table) {
-		for (string& field : line) {
-			cout << field << "|";
+	for (int i = 0; i < table.getNRows(); ++i) {
+		for (int j = 0; j < table.getNColumns(); ++j) {
+			cout << table.getCellValue(i, j) << "|";
 		}
 		cout << endl;
 	}
@@ -23,32 +24,9 @@ void printTable(vector<vector<string>>& table) {
 int main(int argc, char* argv[]) {
 
 	setlocale(LC_ALL, "en_US.UTF-8");
-
-	ifstream inputFile("data.csv");
-	if (!inputFile.good()) {
-		cout << "Error opening file" << endl;
-		return -1;
-	}
-
-	string line = "";
-	vector<vector<string>> csvTable;
-	while (!inputFile.eof()) {
-		getline(inputFile, line);
-		cout << line << endl;
-
-		istringstream strStream(line);
-		vector<string> csvColumns;
-		while (!strStream.eof()) {
-			string field = "";
-			getline(strStream, field, ';');
-			cout << "Field: " << field << endl;
-			csvColumns.push_back(field);
-		}
-		csvTable.push_back(csvColumns);
-	}
+	CSVTable csvTable;
+	csvTable.parseFile("data.csv");
 	
-
-	inputFile.close();
 
 	printTable(csvTable);
 	
