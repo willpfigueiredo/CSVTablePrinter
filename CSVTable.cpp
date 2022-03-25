@@ -36,14 +36,24 @@ std::string CSVTable::getCellValue(int row, int column)
 	return m_table[row][column];
 }
 
-int CSVTable::getNRows()
+int CSVTable::getRowsCount()
 {
 	return m_table.size();
 }
 
-int CSVTable::getNColumns()
+int CSVTable::getColumnCount()
 {
 	return m_table[0].size();
+}
+
+auto CSVTable::begin()
+{
+	return m_table.begin();
+}
+
+auto CSVTable::end()
+{
+	return m_table.end();
 }
 
 

@@ -15,9 +15,13 @@ public:
 
 	std::string getCellValue(int line, int row);
 
-	int getNRows();
+	int getRowsCount();
 
-	int getNColumns();
+	int getColumnCount();
+
+	auto begin();
+	
+	auto end();
 
 private:
 	std::vector<std::vector<std::string>> m_table;
