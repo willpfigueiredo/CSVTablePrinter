@@ -87,7 +87,8 @@ void TablePrinter::printRow(vector<string>& row)
 				cout << left << setw(m_maxLength.at(colIndex) + difference) << textColumns[colIndex][lineIndex] << "|";
 			}
 			else {
-				cout << setw(m_maxLength.at(colIndex)+1) << "|";
+				string spacesString(m_maxLength.at(colIndex), ' ');
+				cout << spacesString << "|";
 			}
 		}
 
