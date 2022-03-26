@@ -5,6 +5,7 @@
 #include <iomanip>
 #include <vector>
 #include "CSVTable.hpp"
+#include <numeric>
 
 class TablePrinter {
 public:
@@ -16,6 +17,8 @@ private:
 	void fillMaxLength(CSVTable& table);
 
 	unsigned int realUTF8CharLength(std::string& str);
+
+	void printRow(std::vector<std::string>& row);
 
 };
 

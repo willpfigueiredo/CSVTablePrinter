@@ -27,7 +27,7 @@ int main(int argc, char* argv[]) {
 	setlocale(LC_ALL, "en_US.UTF-8");
 	CSVTable csvTable;
 	TablePrinter printer;
-	csvTable.parseFile("data.csv");
+	csvTable.parseFile("datawill.csv");
 	printer.printTable(csvTable);
 	//printTable(csvTable);
 	return 0;

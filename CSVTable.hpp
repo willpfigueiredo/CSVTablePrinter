@@ -15,6 +15,8 @@ public:
 
 	std::string getCellValue(int line, int row);
 
+	std::vector<std::string>& getRow(int row);
+
 	int getRowsCount();
 
 	int getColumnCount();
