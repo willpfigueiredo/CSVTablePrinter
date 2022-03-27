@@ -5,7 +5,16 @@ using namespace std;
 void TablePrinter::printTable(CSVTable& table)
 {
 	fillMaxLength(table);
-	for (int rowIndex = 0; rowIndex < table.getRowsCount(); ++rowIndex) {
+
+	printRow(table.getRow(0));
+
+	vector<string> separator;
+	for (int colIndex = 0; colIndex < m_maxLength.size(); ++colIndex) {
+		separator.push_back(string(m_maxLength.at(colIndex), '*'));
+	}
+	printRow(separator);
+
+	for (int rowIndex = 1; rowIndex < table.getRowsCount(); ++rowIndex) {
 		printRow(table.getRow(rowIndex));
 	}
 }
@@ -70,7 +79,7 @@ void TablePrinter::printRow(vector<string>& row)
 	//assemble text lines for each row
 	for (int colIndex = 0; colIndex < row.size(); ++colIndex) {
 		string value = row.at(colIndex);
-		int nLines = 1;//there is at least one line
+		int nLines = 1;
 		do {
 			//int substringSize = min(temp.length(), m_maxLength.at(colIndex));
 			textColumns[colIndex].push_back(value.substr(0, m_maxLength.at(colIndex)));
