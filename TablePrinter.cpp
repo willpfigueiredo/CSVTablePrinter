@@ -25,8 +25,6 @@ void TablePrinter::fillMaxLength(CSVTable& table)
 	}
 
 	int colLimit = 80 - table.getColumnCount();
-	
-
 	int lengthLimit = colLimit / table.getColumnCount();
 	int underLimitAccum = 0;
 	int overLimitAccum = 0;
@@ -47,17 +45,6 @@ void TablePrinter::fillMaxLength(CSVTable& table)
 		}
 	
 	}
-
-
-
-	/*int sum = accumulate(begin(m_maxLength), end(m_maxLength), 0);
-	do {
-		if (sum > colLimit) {
-			auto maxIter = max_element(begin(m_maxLength), end(m_maxLength));
-			int difference = sum - colLimit;
-			*maxIter -= difference;
-		}
-	} while (sum < colLimit);*/
 	
 }
 
@@ -83,7 +70,7 @@ void TablePrinter::printRow(vector<string>& row)
 	//assemble text lines for each row
 	for (int colIndex = 0; colIndex < row.size(); ++colIndex) {
 		string value = row.at(colIndex);
-		int nLines = 0;
+		int nLines = 1;//there is at least one line
 		do {
 			//int substringSize = min(temp.length(), m_maxLength.at(colIndex));
 			textColumns[colIndex].push_back(value.substr(0, m_maxLength.at(colIndex)));
@@ -99,6 +86,8 @@ void TablePrinter::printRow(vector<string>& row)
 		} while (value.length() > 0);
 	}
 
+
+	//prints the row
 	for (int lineIndex = 0; lineIndex < maxLines; ++lineIndex) {
 		for (int colIndex = 0; colIndex < row.size(); ++colIndex) {
 			
