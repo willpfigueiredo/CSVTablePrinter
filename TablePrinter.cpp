@@ -25,18 +25,39 @@ void TablePrinter::fillMaxLength(CSVTable& table)
 	}
 
 	int colLimit = 80 - table.getColumnCount();
-	int sum = accumulate(begin(m_maxLength), end(m_maxLength), 0);
+	
 
-	//TODO Divide the length by number o columns
-	//accumulate lengths smaller than div results
-	//for legths greater than div, divide the rest by number of clumns wider than div.
+	int lengthLimit = colLimit / table.getColumnCount();
+	int underLimitAccum = 0;
+	int overLimitAccum = 0;
+	for (int i = 0; i < m_maxLength.size(); ++i) {
+		if (m_maxLength.at(i) <= lengthLimit) {
+			underLimitAccum += m_maxLength.at(i);
+		}
+		else {
+			overLimitAccum += m_maxLength.at(i);
+		}
+	}
+
+	int sublimit = (colLimit - underLimitAccum);
+	for (int i = 0; i < m_maxLength.size(); ++i) {
+		if (m_maxLength.at(i) > lengthLimit) {
+			
+			m_maxLength[i] = sublimit*m_maxLength.at(i)/overLimitAccum;
+		}
+	
+	}
+
+
+
+	/*int sum = accumulate(begin(m_maxLength), end(m_maxLength), 0);
 	do {
 		if (sum > colLimit) {
 			auto maxIter = max_element(begin(m_maxLength), end(m_maxLength));
 			int difference = sum - colLimit;
 			*maxIter -= difference;
 		}
-	} while (sum < colLimit);
+	} while (sum < colLimit);*/
 	
 }
 
