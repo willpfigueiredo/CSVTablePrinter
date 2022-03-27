@@ -16,7 +16,7 @@ private:
 
 	void fillMaxLength(CSVTable& table);
 
-	unsigned int realUTF8CharLength(std::string& str);
+	unsigned int realUTF8CharLength(const std::string& str);
 
 	void printRow(std::vector<std::string>& row);
 
