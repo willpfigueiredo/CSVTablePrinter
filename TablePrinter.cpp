@@ -57,7 +57,7 @@ void TablePrinter::fillMaxLength(CSVTable& table)
 	
 }
 
-unsigned int TablePrinter::realUTF8CharLength(std::string& str)
+unsigned int TablePrinter::realUTF8CharLength(const std::string& str)
 {
 	unsigned int strLen = str.length();
 	setlocale(LC_ALL, "en_US.utf8");
@@ -94,7 +94,6 @@ void TablePrinter::printRow(vector<string>& row)
 			}
 		} while (value.length() > 0);
 	}
-
 
 	//prints the row
 	for (int lineIndex = 0; lineIndex < maxLines; ++lineIndex) {
