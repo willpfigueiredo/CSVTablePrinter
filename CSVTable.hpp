@@ -25,7 +25,7 @@ public:
 	
 	auto end();
 
-private:
+protected:
 	std::vector<std::vector<std::string>> m_table;
 };
 

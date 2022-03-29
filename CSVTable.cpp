@@ -14,14 +14,12 @@ void CSVTable::parseFile(std::string fileName)
 	string line = "";
 	while (!inputFile.eof()) {
 		getline(inputFile, line);
-		cout << line << endl;
 
 		istringstream strStream(line);
 		vector<string> rowValues;
 		while (!strStream.eof()) {
 			string value = "";
 			getline(strStream, value, ';');
-			cout << "Field: " << value << endl;
 			rowValues.push_back(value);
 		}
 		m_table.push_back(rowValues);

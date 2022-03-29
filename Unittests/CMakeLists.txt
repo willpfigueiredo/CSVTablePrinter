@@ -1,0 +1,14 @@
+set(FETCHCONTENT_QUIET OFF CACHE BOOL "Disabling FetchContent quiet mode" FORCE)
+#set(gtest_force_shared_crt ON CACHE BOOL "" FORCE)  #for windows
+
+include(FetchContent)
+FetchContent_Declare(
+    googletest
+    GIT_REPOSITORY https://github.com/google/googletest.git
+    GIT_TAG        release-1.10.0
+)
+FetchContent_MakeAvailable(googletest)
+
+add_executable(CSVTable_test "CSVTable_test.cpp")
+target_link_libraries(CSVTable_test PRIVATE gtest_main pthread CSVTable)
+target_include_directories(CSVTable_test PRIVATE ${CMAKE_SOURCE_DIR})
