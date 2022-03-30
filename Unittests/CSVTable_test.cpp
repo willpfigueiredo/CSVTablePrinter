@@ -1,11 +1,7 @@
 #include <gtest/gtest.h>
-#include <gmock/gmock.h>
 #include <vector>
 #include <string>
 #include "CSVTable.hpp"
-#include "TablePrinter.hpp"
-
-
 
 class CSVTableToTest : public CSVTable
 {
@@ -78,5 +74,25 @@ TEST(CSVTableTestSuite, GetRowsCountTest)
             {"Max Mustermann","Bischöflich-Geistlicher-Rat-Zinnbauer-Straße 11","54321 Nirgendwo","22"}};
 
     EXPECT_EQ(4, csvTable.getRowsCount());
+
+}
+
+TEST(CSVTableTestSuite, GetRowTest)
+{
+    CSVTableToTest csvTable;
+    std::vector<std::vector<std::string>> &table = csvTable.getTable();
+
+    table = {{"Name","Street","City","Age"},
+            {"Peter Pan","Am Hang 5","12345 Einsam","42"},
+            {"Maria Schmitz","Kölner Straße 45","50123 Köln",""},
+            {"Max Mustermann","Bischöflich-Geistlicher-Rat-Zinnbauer-Straße 11","54321 Nirgendwo","22"}};
+
+    std::vector<std::string> row = csvTable.getRow(2);
+
+    EXPECT_EQ(table[2][0], row[0]);
+    EXPECT_EQ(table[2][1], row[1]);
+    EXPECT_EQ(table[2][2], row[2]);
+    EXPECT_EQ(table[2][3], row[3]);
+    
 
 }
