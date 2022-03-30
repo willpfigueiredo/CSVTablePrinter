@@ -11,22 +11,46 @@
 
 class CSVTable {
 public:
-	void parseFile(std::string fileName);
+	/**
+	 * @brief reades the csv file and stores its values in a table.
+	 * 
+	 * @param fileName name of the file to parse
+	 */
+	virtual void parseFile(std::string fileName);
 
-	std::string getCellValue(int line, int row);
+	/**
+	 * @brief returns the value of a cell of the table
+	 * 
+	 * @param row 
+	 * @param column 
+	 * @return std::string 
+	 */
+	virtual std::string getCellValue(int line, int row);
 
-	std::vector<std::string>& getRow(int row);
+	/**
+	 * @brief Get a row of the table as a vector of strings
+	 * 
+	 * @param row index of the row
+	 * @return std::vector<std::string>& 
+	 */
+	virtual std::vector<std::string>& getRow(int row);
 
-	int getRowsCount();
+	/**
+	 * @brief Get the number of rows
+	 *  
+	 * @return int 
+	 */
+	virtual int getRowsCount();
 
-	int getColumnCount();
-
-	auto begin();
-	
-	auto end();
+	/**
+	 * @brief Get the number of columns
+	 * 
+	 * @return int 
+	 */
+	virtual int getColumnCount();
 
 protected:
-	std::vector<std::vector<std::string>> m_table;
+	std::vector<std::vector<std::string>> m_table;///table with data from the csv file
 };
 
 #endif // !CSV_TABLE_H

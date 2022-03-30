@@ -1,12 +1,21 @@
 #include <gtest/gtest.h>
+#include <gmock/gmock.h>
 #include <vector>
 #include <string>
 #include "CSVTable.hpp"
+#include "TablePrinter.hpp"
+
+
 
 class CSVTableToTest : public CSVTable
 {
     public:
 
+    /**
+     * @brief Get the Table object so that it can be populated for test purposes
+     * 
+     * @return std::vector<std::vector<std::string>>& 
+     */
     std::vector<std::vector<std::string>>& getTable(){
         return m_table;
     }

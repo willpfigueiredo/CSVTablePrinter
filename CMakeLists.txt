@@ -2,19 +2,19 @@ cmake_minimum_required(VERSION 3.12)
 
 project(CSVTablePrinter)
 
-add_library(CSVTable STATIC
+add_library(CSVTable 
 "CSVTable.hpp" 
 "CSVTable.cpp"
 )
 
-add_library(TablePrinter STATIC
+add_library(TablePrinter 
 "TablePrinter.hpp" 
 "TablePrinter.cpp")
-target_link_libraries(TablePrinter PUBLIC
+target_link_libraries(TablePrinter 
 CSVTable)
 
 add_executable(${PROJECT_NAME} "CSVTablePrinter.cpp"  )
-target_link_libraries(${PROJECT_NAME} PUBLIC
+target_link_libraries(${PROJECT_NAME} 
 CSVTable
 TablePrinter)
 

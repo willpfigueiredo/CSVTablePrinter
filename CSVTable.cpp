@@ -2,6 +2,7 @@
 
 using namespace std;
 
+
 void CSVTable::parseFile(std::string fileName)
 {
 	ifstream inputFile(fileName);
@@ -29,6 +30,7 @@ void CSVTable::parseFile(std::string fileName)
 	inputFile.close();
 }
 
+
 std::string CSVTable::getCellValue(int row, int column)
 {
 	return m_table[row][column];
@@ -47,16 +49,6 @@ int CSVTable::getRowsCount()
 int CSVTable::getColumnCount()
 {
 	return m_table[0].size();
-}
-
-auto CSVTable::begin()
-{
-	return m_table.begin();
-}
-
-auto CSVTable::end()
-{
-	return m_table.end();
 }
 
 
