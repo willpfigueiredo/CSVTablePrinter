@@ -74,26 +74,10 @@ unsigned int TablePrinter::realUTF8CharLength(const std::string& str)
 
 void TablePrinter::printRow(vector<string>& row)
 {
-	vector<vector<string>> textColumns(row.size());//vector of columns x lines
-	int maxLines = 0;
-	//assemble text lines for each row
-	for (int colIndex = 0; colIndex < row.size(); ++colIndex) {
-		string value = row.at(colIndex);
-		int nLines = 1;
-		do {
-			//int substringSize = min(temp.length(), m_maxLength.at(colIndex));
-			textColumns[colIndex].push_back(value.substr(0, m_maxLength.at(colIndex)));
-			if (value.length() > textColumns[colIndex].back().length()) {
-				string temp = value.substr(textColumns[colIndex].back().length(), 999);
-				value = temp;
-				++nLines;
-			}
-			else {
-				value = "";
-				maxLines = nLines > maxLines ? nLines : maxLines;
-			}
-		} while (value.length() > 0);
-	}
+	pair<vector<vector<string>>, int> rowInLines;
+	rowInLines = assembleTextLines(row);
+	vector<vector<string>> textColumns = rowInLines.first;
+	int maxLines = rowInLines.second;
 
 	//prints the row
 	for (int lineIndex = 0; lineIndex < maxLines; ++lineIndex) {
@@ -112,4 +96,29 @@ void TablePrinter::printRow(vector<string>& row)
 
 		cout << endl;
 	}
+}
+
+
+pair<vector<vector<string>>, int> TablePrinter::assembleTextLines(vector<string> row)
+{	
+	vector<vector<string>> textColumns(row.size());//vector of columns x lines
+	int maxLines = 0;
+	for (int colIndex = 0; colIndex < row.size(); ++colIndex) {
+		string value = row.at(colIndex);
+		int nLines = 1;
+		do {
+			//int substringSize = min(temp.length(), m_maxLength.at(colIndex));
+			textColumns[colIndex].push_back(value.substr(0, m_maxLength.at(colIndex)));
+			if (value.length() > textColumns[colIndex].back().length()) {
+				string temp = value.substr(textColumns[colIndex].back().length(), 999);
+				value = temp;
+				++nLines;
+			}
+			else {
+				value = "";
+				maxLines = nLines > maxLines ? nLines : maxLines;
+			}
+		} while (value.length() > 0);
+	}
+	return pair<vector<vector<string>>, int>(textColumns, maxLines);
 }

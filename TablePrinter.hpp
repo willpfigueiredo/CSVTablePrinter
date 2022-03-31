@@ -9,6 +9,11 @@
 
 class TablePrinter {
 public:
+/**
+ * @brief prints the data of a CSVTable as a fomatted table
+ * 
+ * @param table 
+ */
 	void printTable(CSVTable& table);
 
 protected:
@@ -16,9 +21,30 @@ protected:
 
 	void fillMaxLength(CSVTable& table);
 
+	
+	/**
+	 * @brief gets the real length of a screen with special utf-8 characters
+	 * 
+	 * @param str 
+	 * @return unsigned int 
+	 */
 	unsigned int realUTF8CharLength(const std::string& str);
 
+	
+	/**
+	 * @brief prints a row of the table
+	 * 
+	 * @param row 
+	 */
 	void printRow(std::vector<std::string>& row);
+	
+	/**
+	 * @brief assemble text lines for each row
+	 * 
+	 * @param row 
+	 * @return std::pair<std::vector<std::vector<std::string>>, int> 
+	 */
+	std::pair<std::vector<std::vector<std::string>>, int> assembleTextLines(std::vector<std::string> row);
 
 };
 
