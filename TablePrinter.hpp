@@ -11,7 +11,7 @@ class TablePrinter {
 public:
 	void printTable(CSVTable& table);
 
-private:
+protected:
 	std::vector<unsigned int> m_maxLength;//stores the max length for each column
 
 	void fillMaxLength(CSVTable& table);
