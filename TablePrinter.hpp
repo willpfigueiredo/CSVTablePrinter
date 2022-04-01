@@ -18,6 +18,8 @@ public:
 
 protected:
 	std::vector<unsigned int> m_maxLength;//stores the max length for each column
+	std::string m_printColor = "";
+	std::string m_standardColor = "";
 
 	void fillMaxLength(CSVTable& table);
 

@@ -15,6 +15,16 @@ void TablePrinter::printTable(CSVTable& table)
 	printRow(separator);
 
 	for (int rowIndex = 1; rowIndex < table.getRowsCount(); ++rowIndex) {
+		#ifdef __linux__
+		m_standardColor = "\033[0m";
+		if(m_printColor == "\033[44m"){
+			m_printColor = m_standardColor;
+		}
+		else{
+			m_printColor = "\033[44m";
+		}
+		#endif
+
 		printRow(table.getRow(rowIndex));
 	}
 }
@@ -81,12 +91,13 @@ void TablePrinter::printRow(vector<string>& row)
 
 	//prints the row
 	for (int lineIndex = 0; lineIndex < maxLines; ++lineIndex) {
+		cout << m_printColor;
 		for (int colIndex = 0; colIndex < row.size(); ++colIndex) {
 			
 			if (lineIndex < textColumns[colIndex].size()) {
 				//difference in lengths due to UTF8 double byte chars
 				unsigned int difference = textColumns[colIndex][lineIndex].length() - realUTF8CharLength(textColumns[colIndex][lineIndex]);
-				cout << left << setw(m_maxLength.at(colIndex) + difference) << textColumns[colIndex][lineIndex] << "|";
+				cout << left << setw(m_maxLength.at(colIndex) + difference) << textColumns[colIndex][lineIndex] << "|" ;
 			}
 			else {
 				string spacesString(m_maxLength.at(colIndex), ' ');
@@ -94,7 +105,7 @@ void TablePrinter::printRow(vector<string>& row)
 			}
 		}
 
-		cout << endl;
+		cout << m_standardColor << endl;
 	}
 }
 
