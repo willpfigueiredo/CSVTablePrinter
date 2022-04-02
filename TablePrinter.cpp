@@ -5,14 +5,16 @@ using namespace std;
 void TablePrinter::printTable(CSVTable& table)
 {
 	fillMaxLength(table);
-
+	m_standardColorWin = 15;
+	m_printColorWin = 15;
 	printRow(table.getRow(0));
-
+	
 	vector<string> separator;
 	for (int colIndex = 0; colIndex < m_maxLength.size(); ++colIndex) {
 		separator.push_back(string(m_maxLength.at(colIndex), '*'));
 	}
 	printRow(separator);
+
 
 	for (int rowIndex = 1; rowIndex < table.getRowsCount(); ++rowIndex) {
 		#ifdef __linux__
@@ -24,6 +26,17 @@ void TablePrinter::printTable(CSVTable& table)
 			m_printColor = "\033[44m";
 		}
 		#endif
+
+		//#ifdef _WIN32
+		
+		if (m_printColorWin ==( 1 << 4 | 15)) {
+			m_printColorWin = m_standardColorWin;
+		}
+		else {
+			m_printColorWin = (1 << 4 | 15);
+		}
+		//#endif
+
 
 		printRow(table.getRow(rowIndex));
 	}
@@ -38,13 +51,13 @@ void TablePrinter::fillMaxLength(CSVTable& table)
 	for (int rowIndex = 0; rowIndex < table.getRowsCount(); ++rowIndex) {
 		for (int colIndex = 0; colIndex < table.getColumnCount(); ++colIndex) {
 			if (realUTF8CharLength(table.getCellValue(rowIndex, colIndex)) > m_maxLength[colIndex]) {
-				m_maxLength[colIndex] = realUTF8CharLength(table.getCellValue(rowIndex, colIndex));
+				m_maxLength[colIndex] = static_cast<unsigned int>(realUTF8CharLength(table.getCellValue(rowIndex, colIndex)));
 			}
 		}
 	}
 
 	int colLimit = 80 - table.getColumnCount();
-	int lengthLimit = colLimit / table.getColumnCount();
+	unsigned int lengthLimit = colLimit / table.getColumnCount();
 	int underLimitAccum = 0;
 	int overLimitAccum = 0;
 	for (int i = 0; i < m_maxLength.size(); ++i) {
@@ -67,13 +80,13 @@ void TablePrinter::fillMaxLength(CSVTable& table)
 	
 }
 
-unsigned int TablePrinter::realUTF8CharLength(const std::string& str)
+size_t TablePrinter::realUTF8CharLength(const std::string& str)
 {
-	unsigned int strLen = str.length();
+	size_t strLen = str.length();
 	setlocale(LC_ALL, "en_US.utf8");
 	unsigned int index = 0;
 	const char* c_str = str.c_str();
-	unsigned int charCount = 0;
+	size_t charCount = 0;
 	while (index < strLen)
 	{
 		index += mblen(&c_str[index], strLen - index);
@@ -91,12 +104,17 @@ void TablePrinter::printRow(vector<string>& row)
 
 	//prints the row
 	for (int lineIndex = 0; lineIndex < maxLines; ++lineIndex) {
+#ifdef _WIN32
+		HANDLE consoleHandle;
+		consoleHandle = GetStdHandle(STD_OUTPUT_HANDLE);
+		SetConsoleTextAttribute(consoleHandle, m_printColorWin);
+#endif
 		cout << m_printColor;
 		for (int colIndex = 0; colIndex < row.size(); ++colIndex) {
 			
 			if (lineIndex < textColumns[colIndex].size()) {
 				//difference in lengths due to UTF8 double byte chars
-				unsigned int difference = textColumns[colIndex][lineIndex].length() - realUTF8CharLength(textColumns[colIndex][lineIndex]);
+				size_t difference = textColumns[colIndex][lineIndex].length() - realUTF8CharLength(textColumns[colIndex][lineIndex]);
 				cout << left << setw(m_maxLength.at(colIndex) + difference) << textColumns[colIndex][lineIndex] << "|" ;
 			}
 			else {
@@ -106,6 +124,10 @@ void TablePrinter::printRow(vector<string>& row)
 		}
 
 		cout << m_standardColor << endl;
+#ifdef _WIN32
+		SetConsoleTextAttribute(consoleHandle, m_standardColorWin);
+		
+#endif
 	}
 }
 

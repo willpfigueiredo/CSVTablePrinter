@@ -1,5 +1,5 @@
 set(FETCHCONTENT_QUIET OFF CACHE BOOL "Disabling FetchContent quiet mode" FORCE)
-#set(gtest_force_shared_crt ON CACHE BOOL "" FORCE)  #for windows
+set(gtest_force_shared_crt ON CACHE BOOL "" FORCE)  #for windows
 
 include(FetchContent)
 FetchContent_Declare(
