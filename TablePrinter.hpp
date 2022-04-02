@@ -39,12 +39,12 @@ protected:
 	void printRow(std::vector<std::string>& row);
 	
 	/**
-	 * @brief assemble text lines for each row
+	 * @brief split the row content in lines for printing
 	 * 
 	 * @param row 
 	 * @return std::pair<std::vector<std::vector<std::string>>, int> 
 	 */
-	std::pair<std::vector<std::vector<std::string>>, int> assembleTextLines(std::vector<std::string> row);
+	std::pair<std::vector<std::vector<std::string>>, int> splitRowInLines(std::vector<std::string> row);
 
 };
 

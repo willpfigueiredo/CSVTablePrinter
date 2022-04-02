@@ -75,7 +75,7 @@ unsigned int TablePrinter::realUTF8CharLength(const std::string& str)
 void TablePrinter::printRow(vector<string>& row)
 {
 	pair<vector<vector<string>>, int> rowInLines;
-	rowInLines = assembleTextLines(row);
+	rowInLines = splitRowInLines(row);
 	vector<vector<string>> textColumns = rowInLines.first;
 	int maxLines = rowInLines.second;
 
@@ -99,7 +99,7 @@ void TablePrinter::printRow(vector<string>& row)
 }
 
 
-pair<vector<vector<string>>, int> TablePrinter::assembleTextLines(vector<string> row)
+pair<vector<vector<string>>, int> TablePrinter::splitRowInLines(vector<string> row)
 {	
 	vector<vector<string>> textColumns(row.size());//vector of columns x lines
 	int maxLines = 0;
