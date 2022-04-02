@@ -7,6 +7,10 @@
 #include "CSVTable.hpp"
 #include <numeric>
 
+#ifdef _WIN32
+#include <Windows.h>
+#endif
+
 class TablePrinter {
 public:
 /**
@@ -18,6 +22,13 @@ public:
 
 protected:
 	std::vector<unsigned int> m_maxLength;//stores the max length for each column
+	std::string m_printColor = "";
+	std::string m_standardColor = "";
+	
+#ifdef _WIN32
+	int m_printColorWin;
+	int m_standardColorWin;
+#endif
 
 	void fillMaxLength(CSVTable& table);
 
@@ -28,7 +39,7 @@ protected:
 	 * @param str 
 	 * @return unsigned int 
 	 */
-	unsigned int realUTF8CharLength(const std::string& str);
+	size_t realUTF8CharLength(const std::string& str);
 
 	
 	/**
