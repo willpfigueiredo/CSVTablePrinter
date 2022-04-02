@@ -5,8 +5,10 @@ using namespace std;
 void TablePrinter::printTable(CSVTable& table)
 {
 	fillMaxLength(table);
+	#ifdef _WIN32
 	m_standardColorWin = 15;
 	m_printColorWin = 15;
+	#endif
 	printRow(table.getRow(0));
 	
 	vector<string> separator;
@@ -27,7 +29,7 @@ void TablePrinter::printTable(CSVTable& table)
 		}
 		#endif
 
-		//#ifdef _WIN32
+		#ifdef _WIN32
 		
 		if (m_printColorWin ==( 1 << 4 | 15)) {
 			m_printColorWin = m_standardColorWin;
@@ -35,7 +37,7 @@ void TablePrinter::printTable(CSVTable& table)
 		else {
 			m_printColorWin = (1 << 4 | 15);
 		}
-		//#endif
+		#endif
 
 
 		printRow(table.getRow(rowIndex));
