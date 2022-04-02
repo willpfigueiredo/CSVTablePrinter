@@ -16,20 +16,6 @@ class MockCSVTable : public CSVTable
     MOCK_METHOD(int, getRowsCount, ());
     MOCK_METHOD(int, getColumnCount, ());
 
-
-
-
-	/*virtual std::string getCellValue(int line, int row);
-
-
-	virtual std::vector<std::string>& getRow(int row);
-
-
-	virtual int getRowsCount();
-
-
-	virtual int getColumnCount();*/
-
 };
 
 class TablePrinterToTest:public TablePrinter
@@ -54,8 +40,7 @@ TEST(TablePrinterTestSuite, FillMaxLengthTest)
     table = {{"Name","Street","City","Age"},
             {"Pedro de Alcântara João Carlos Leopoldo Salvador Bibiano Francisco Xavier de Paula Leocádio Miguel Gabriel Rafael Gonzaga de Bragança e Bourbon","Bischöflich-Geistlicher-Rat-Zinnbauer-Straße 11","54321 Nirgendwo","22"}};
 
-    MockCSVTable csvTable;
-    
+    MockCSVTable csvTable; 
 
     EXPECT_CALL(csvTable, getCellValue(0,0)).WillRepeatedly(testing::Return(table[0][0]));
     EXPECT_CALL(csvTable, getCellValue(0,1)).WillRepeatedly(testing::Return(table[0][1]));
@@ -67,21 +52,14 @@ TEST(TablePrinterTestSuite, FillMaxLengthTest)
     EXPECT_CALL(csvTable, getCellValue(1,3)).WillRepeatedly(testing::Return(table[1][3]));
     EXPECT_CALL(csvTable, getRowsCount()).WillRepeatedly(testing::Return(2));
     EXPECT_CALL(csvTable, getColumnCount()).WillRepeatedly(testing::Return(4));
-
     
     TablePrinterToTest tablePrinter;
-    std::cout<< "Calling MaxLength"<<std::endl;
     tablePrinter.fillMaxLength(csvTable);
-
-    
-
     std::vector<unsigned int>& maxVect = tablePrinter.getMaxLength();
     EXPECT_EQ(maxVect[0], 43);
     EXPECT_EQ(maxVect[1], 14);
     EXPECT_EQ(maxVect[2], 15);
     EXPECT_EQ(maxVect[3], 3);
-
-
 }
 
 TEST(TablePrinterTestSuite, realUTF8CharLengthTest)
@@ -161,7 +139,5 @@ TEST(TablePrinterTestSuite, SplitRowInLinesTestThreeLinesEmpty)
 
     EXPECT_EQ(rowSplitInLines.second, 4);
     EXPECT_EQ(rowSplitInLines.first[3][0], "22");
-    EXPECT_EQ(rowSplitInLines.first[3][1], "");
-    EXPECT_EQ(rowSplitInLines.first[3][2],"");
-    EXPECT_EQ(rowSplitInLines.first[3][3],"");
+    EXPECT_EQ(rowSplitInLines.first[3].size(), 1);
 }
