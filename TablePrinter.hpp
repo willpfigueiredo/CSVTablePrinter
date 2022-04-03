@@ -47,7 +47,7 @@ protected:
 	 * 
 	 * @param row 
 	 */
-	void printRow(std::vector<std::string>& row);
+	void printRow(std::vector<std::string>& row, char colSeparator = '|');
 	
 	/**
 	 * @brief split the row content in lines for printing

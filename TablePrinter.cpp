@@ -13,9 +13,9 @@ void TablePrinter::printTable(CSVTable& table)
 	
 	vector<string> separator;
 	for (int colIndex = 0; colIndex < m_maxLength.size(); ++colIndex) {
-		separator.push_back(string(m_maxLength.at(colIndex), '*'));
+		separator.push_back(string(m_maxLength.at(colIndex), '-'));
 	}
-	printRow(separator);
+	printRow(separator, '+');
 
 
 	for (int rowIndex = 1; rowIndex < table.getRowsCount(); ++rowIndex) {
@@ -97,7 +97,7 @@ size_t TablePrinter::realUTF8CharLength(const std::string& str)
 	return charCount;
 }
 
-void TablePrinter::printRow(vector<string>& row)
+void TablePrinter::printRow(vector<string>& row, char colSeparator )
 {
 	pair<vector<vector<string>>, int> rowInLines;
 	rowInLines = splitRowInLines(row);
@@ -117,11 +117,11 @@ void TablePrinter::printRow(vector<string>& row)
 			if (lineIndex < textColumns[colIndex].size()) {
 				//difference in lengths due to UTF8 double byte chars
 				size_t difference = textColumns[colIndex][lineIndex].length() - realUTF8CharLength(textColumns[colIndex][lineIndex]);
-				cout << left << setw(m_maxLength.at(colIndex) + difference) << textColumns[colIndex][lineIndex] << "|" ;
+				cout << left << setw(m_maxLength.at(colIndex) + difference) << textColumns[colIndex][lineIndex] << colSeparator ;
 			}
 			else {
 				string spacesString(m_maxLength.at(colIndex), ' ');
-				cout << spacesString << "|";
+				cout << spacesString << colSeparator;
 			}
 		}
 
