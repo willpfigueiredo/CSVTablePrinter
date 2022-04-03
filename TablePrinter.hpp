@@ -46,6 +46,7 @@ protected:
 	 * @brief prints a row of the table
 	 * 
 	 * @param row 
+	 * @param colSeparator character used as column separator
 	 */
 	void printRow(std::vector<std::string>& row, char colSeparator = '|');
 	
