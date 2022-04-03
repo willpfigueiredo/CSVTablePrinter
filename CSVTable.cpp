@@ -1,15 +1,23 @@
 #include "CSVTable.hpp"
+#include <unistd.h>
+
 
 using namespace std;
 
 
 void CSVTable::parseFile(std::string fileName)
 {
+	
+
 	ifstream inputFile(fileName);
 	if (!inputFile.good()) {
-		cout << "Error opening file" << endl;
-		return;
-		//handle this with exception
+		
+		throw invalid_argument ("Error opening the file. Wrong address or the file does not exist");
+		
+	}
+
+	if(inputFile.peek() == EOF){
+		throw invalid_argument("File is empty");
 	}
 
 	string line = "";

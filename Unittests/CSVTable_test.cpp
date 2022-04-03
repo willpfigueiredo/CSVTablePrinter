@@ -33,6 +33,42 @@ TEST(CSVTableTestSuite, FileParseTest)
     EXPECT_EQ("65", table[4][3]);
 }
 
+TEST(CSVTableTestSuite, FileParseTestEmpty)
+{
+    CSVTableToTest csvTable;
+    
+
+    try {
+        csvTable.parseFile("dataEmpty.csv");
+        FAIL() << "Expected std::invalid_argument";
+    }
+    catch(std::invalid_argument const & err) {
+        EXPECT_EQ(err.what(),std::string("File is empty"));
+    }
+    catch(...) {
+        FAIL() << "Expected std::invalid_argument";
+    }
+    
+}
+
+TEST(CSVTableTestSuite, FileParseTestNoFile)
+{
+    CSVTableToTest csvTable;
+    
+
+    try {
+        csvTable.parseFile("foo.csv");
+        FAIL() << "Expected std::invalid_argument";
+    }
+    catch(std::invalid_argument const & err) {
+        EXPECT_EQ(err.what(),std::string("Error opening the file. Wrong address or the file does not exist"));
+    }
+    catch(...) {
+        FAIL() << "Expected std::invalid_argument";
+    }
+    
+}
+
 TEST(CSVTableTestSuite, GetCellValueTest)
 {
     CSVTableToTest csvTable;

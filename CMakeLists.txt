@@ -18,6 +18,7 @@ target_link_libraries(${PROJECT_NAME}
 CSVTable
 TablePrinter)
 
-set_target_properties(${PROJECT_NAME} PROPERTIES CXX_STANDARD 14)
+set_target_properties(${PROJECT_NAME} PROPERTIES CXX_STANDARD 17)
 
 add_subdirectory(Unittests)
+
