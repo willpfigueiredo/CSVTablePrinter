@@ -91,10 +91,10 @@ TEST(TablePrinterTestSuite, SplitRowInLinesTest)
     rowSplitInLines = tablePrinter.splitRowInLines(row);
 
     EXPECT_EQ(rowSplitInLines.second, 4);
-    EXPECT_EQ(rowSplitInLines.first[0][0], "Pedro de Alcântara João Carlos Leopoldo S");
-    EXPECT_EQ(rowSplitInLines.first[0][1], "alvador Bibiano Francisco Xavier de Paula L");
-    EXPECT_EQ(rowSplitInLines.first[0][2], "eocádio Miguel Gabriel Rafael Gonzaga de B");
-    EXPECT_EQ(rowSplitInLines.first[0][3], "ragança e Bourbon");
+    EXPECT_EQ(rowSplitInLines.first[0][0], "Pedro de Alcântara João Carlos Leopoldo Sal");
+    EXPECT_EQ(rowSplitInLines.first[0][1], "vador Bibiano Francisco Xavier de Paula Leo");
+    EXPECT_EQ(rowSplitInLines.first[0][2], "cádio Miguel Gabriel Rafael Gonzaga de Brag");
+    EXPECT_EQ(rowSplitInLines.first[0][3], "ança e Bourbon");
     
 }
 
@@ -114,10 +114,10 @@ TEST(TablePrinterTestSuite, SplitRowInLinesTestShorterText)
     rowSplitInLines = tablePrinter.splitRowInLines(row);
 
     EXPECT_EQ(rowSplitInLines.second, 4);
-    EXPECT_EQ(rowSplitInLines.first[1][0],"Bischöflich-G");
-    EXPECT_EQ(rowSplitInLines.first[1][1], "eistlicher-Rat");
-    EXPECT_EQ(rowSplitInLines.first[1][2], "-Zinnbauer-Str");
-    EXPECT_EQ(rowSplitInLines.first[1][3],"aße 11");
+    EXPECT_EQ(rowSplitInLines.first[1][0], "Bischöflich-Ge");
+    EXPECT_EQ(rowSplitInLines.first[1][1], "istlicher-Rat-");
+    EXPECT_EQ(rowSplitInLines.first[1][2], "Zinnbauer-Stra");
+    EXPECT_EQ(rowSplitInLines.first[1][3], "ße 11");
 
     
 }

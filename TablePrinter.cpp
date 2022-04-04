@@ -141,10 +141,26 @@ pair<vector<vector<string>>, int> TablePrinter::splitRowInLines(vector<string> r
 	for (int colIndex = 0; colIndex < row.size(); ++colIndex) {
 		string value = row.at(colIndex);
 		int nLines = 1;
+		unsigned int index = 0;
 		do {
-			//int substringSize = min(temp.length(), m_maxLength.at(colIndex));
 			textColumns[colIndex].push_back(value.substr(0, m_maxLength.at(colIndex)));
-			if (value.length() > textColumns[colIndex].back().length()) {
+
+			//better adjusts the length of the strings to the available cell length considering utf-8 characters
+			size_t charToByteDifference = textColumns[colIndex].back().length() - realUTF8CharLength(textColumns[colIndex].back());
+			if(charToByteDifference > 0 && value.length() > m_maxLength.at(colIndex)){
+				index  = 0;
+				const char* c_str = value.c_str();
+				size_t strLen = value.length();
+				for(int i = 0; i < charToByteDifference; ++i){
+					index += mblen(&c_str[textColumns[colIndex].back().length()+index], strLen - index);
+				}
+
+				textColumns[colIndex].back() += value.substr(m_maxLength.at(colIndex), index);
+
+			}
+			
+			
+			if (realUTF8CharLength(value) > realUTF8CharLength(textColumns[colIndex].back())) {
 				string temp = value.substr(textColumns[colIndex].back().length(), 999);
 				value = temp;
 				++nLines;
