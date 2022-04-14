@@ -15,7 +15,7 @@ int main(int argc, char* argv[]) {
 	setlocale(LC_ALL, "en_US.UTF-8");
 	
 	if (argc < 2){
-		cout << "No file address found. Call CSVTablePrinter [name of the file with address]";
+		cout << "No file found. Call CSVTablePrinter [full path filename]";
 		return -1;
 	}
 
